@@ -1,0 +1,15 @@
+{
+  "name": "vue3-use",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /ppt_vueuse_slidev/",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.35.2",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*",
+    "@vueuse/core": "^9.0.2"
+  }
+}
