@@ -622,7 +622,39 @@ const { x, y, sourceType } = useMouse()
 ```
 
 
+---
 
+# 简易实现
+
+```ts
+export function useMouse(options: UseMouseOptions = {}) {
+  const {
+    type = 'page',
+    initialValue = { x: 0, y: 0 },
+    eventFilter,
+  } = options
+
+  const x = ref(initialValue.x)
+  const y = ref(initialValue.y)
+
+  const mouseHandler = (event: MouseEvent) => {
+    if (type === 'page') {
+      x.value = event.pageX
+      y.value = event.pageY
+    }
+    else if (type === 'client') {
+      x.value = event.clientX
+      y.value = event.clientY
+    }
+  }
+  const mouseHandlerWrapper = (event: MouseEvent) => {
+    return eventFilter === undefined ? mouseHandler(event) : eventFilter(() => mouseHandler(event), {} as any)
+  }
+  useEventListener(window, 'mousemove', mouseHandlerWrapper, { passive: true })
+  useEventListener(window, 'dragover', mouseHandlerWrapper, { passive: true })
+  return { x, y }
+}
+```
 
 
 
