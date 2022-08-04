@@ -6,7 +6,6 @@ highlighter: shiki
 
 # 可组合的 Vue
 
-学习 VueUse ，
 编写可组合可复用的 Vue 函数
 
 <div class="abs-br !mx-14 my-12">
@@ -15,20 +14,113 @@ highlighter: shiki
   </div>
 </div>
 
+
 ---
 layout: center
 class: text-center
 ---
 
-# 组合式
+# Composable
+
+组合式
+
+
+---
+
+# React Hooks
+
+React 16.8 提供的新特性，为函数组件提供状态、生命周期等。  
+使得组件自身能够通过某种机制再触发状态的变更并且引起 re-render。
+
+```ts {all|5|9,10}
+import React, { useState } from 'react';
+
+function Example() {
+  // 声明一个叫 "count" 的 state 变量
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+
+---
+
+# React Hooks
+
+&nbsp;
+
+- 过去几年中，发生的最大的一个开发范式层面的一个变化
+
+- 已经彻底取代了 Class 组件。
+
+- 启发了很多组件逻辑表达和逻辑复用的新范式：
+
+<div class="flex justify-evenly mt-10">
+
+Vue
+
+Svelte
+
+SolidJS
+
+</div>
+
+
+---
+
+# 什么是组合式 API ？
+
+Vue 3 中引入的一种新的编写 Vue 的方式。
+
+<div class="grid grid-cols-2 gap-x-4">
+
+<div>
+
+```html {all|3-4|5-6|7-10|14-15}
+<script setup lang="ts">
+import { ref, watchEffect } from 'vue'
+// 状态
+const count = ref(0)
+// 副作用
+watchEffect(() => console.log(count.value))
+function addCount() {
+  // 状态更新
+  count.value++
+}
+</script>
+
+<template>
+  <p>你点击了 {{ count }} 次</p>
+  <button @click="addCount()">点击</button>
+</template>
+```
+
+<DemoFirst />
+
+</div>
+
+- 基于依赖追踪的范式
+
+- 一次调用，符合原生 JS 直觉
+
+- 自动追踪依赖，无需手动声明
+
+
+</div>
+
+
 
 ---
 clicks: 4
 ---
 
-# 什么是组合式 API ？
-
-在 Vue 3 中引入的一种新的编写 Vue 组件的方式。
+# 对象式 API 与 组合式 API
 
 <div class="grid grid-cols-2 gap-x-4">
 
@@ -69,13 +161,49 @@ function toggleDark() {
 
 </div>
 
----
-clicks: 2
+
 ---
 
 # 什么是组合式函数 ？
 
 利用 Vue 组合式 API 来封装和复用有状态逻辑的函数。
+
+<v-click>
+
+**无状态逻辑**：接收一些输入后立刻返回所期望的输出。
+
+```ts
+let list = [0, 1, 2, 3, 4]
+let result = list.map(i => i * 2)
+list.pop()
+result = list.map(i => i * 2)
+```
+
+</v-click>
+
+<v-click>
+
+**有状态逻辑**：管理会随时间而变化的状态。
+
+```ts
+import { useArrayMap } from '@vueuse/core'
+const list = ref([0, 1, 2, 3, 4])
+const result = useArrayMap(list, i => i * 2)
+// result.value: [0, 2, 4, 6, 8]
+list.value.pop()
+// result.value: [0, 2, 4, 6]
+```
+
+</v-click>
+
+
+---
+clicks: 2
+---
+
+# Mixin 与 组合式函数
+
+复用
 
 <div class="grid grid-rows-2 grid-cols-2 gap-x-4">
 
@@ -95,7 +223,7 @@ export default {
 ```
 
 ```js {all|3-7|0} {at:0}
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 export function useMouse() {
   const dark = ref(false)
   function toggleDark() {
@@ -163,11 +291,12 @@ clicks: 3
 
 </v-click>
 
+
 ---
 clicks: 6
 ---
 
-# 组合式的优势
+# 总结
 
 <div class="grid grid-cols-2 gap-x-4 gap-y-4">
 
@@ -198,6 +327,7 @@ clicks: 6
 
 </div>
 
+
 ---
 
 # VueUse 是什么
@@ -207,88 +337,46 @@ Vue 组合式 API 工具包
 <div class="mt-10 mb-10">
   <a class="!border-none" href="https://www.npmjs.com/package/@vueuse/core" target="__blank"><img class="h-4 inline mx-0.5" src="https://img.shields.io/npm/v/@vueuse/core?color=a1b858&label=" alt="NPM version"></a>
   <a class="!border-none" href="https://www.npmjs.com/package/@vueuse/core" target="__blank"><img class="h-4 inline mx-0.5" alt="NPM Downloads" src="https://img.shields.io/npm/dm/@vueuse/core?color=50a36f&label="></a>
-  <a class="!border-none" href="https://vueuse.org" target="__blank"><img class="h-4 inline mx-0.5" src="https://img.shields.io/static/v1?label=&message=docs%20%26%20demos&color=1e8a7a" alt="Docs & Demos"></a>
-  <img class="h-4 inline mx-0.5" alt="Function Count" src="https://img.shields.io/badge/-114%20functions-13708a">
+  <img class="h-4 inline mx-0.5" alt="Function Count" src="https://img.shields.io/badge/-200+%20functions-13708a">
   <br>
 </div>
 
 
+  - 200+ 组合式函数
   - 同时兼容 Vue 2 和 Vue 3
-  - Tree-shakeable ESM
+  - Tree-shakeable
   - TypeScript
+  - 丰富的扩展包，如 Router、Electron、RxJS
   - CDN 兼容
-  - 核心包含 110+ 组合式函数
-  - 丰富的生态系统 8+ 扩展包
+  - SSR 友好
+  - 文档自带交互性演示
+
 
 ---
 layout: center
 class: text-center
 ---
 
-# useTitle
+# 实现一个 useMouse
+
 
 ---
 
-# 使用
+# 命名
 
-```html
-<script setup lang="ts">
-import { useTitle } from '@vueuse/core'
-const title = useTitle(null)
-</script>
+&nbsp;
 
-<template>
-  <span class="mr-5">修改title：</span>
-  <input class="mt-10 border" v-model="title" type="text">
-</template>
-```
+约定用驼峰命名法命名，以 `use` 开头，如
 
-<DemoTitle />
+- useLastChanged
+- useLocalStorage
+- useElementVisibility
+- useWindowSize
+- useDark
+- useTitle
+- useArrayMap
+- useMouse
 
----
-
-# 简易实现
-
-<div class="grid grid-cols-[450px,1fr] gap-4">
-
-
-```ts
-import { ref, watch } from 'vue'
-import type { MaybeRef } from '@vueuse/shared'
-
-export function useTitle(
-  newTitle: MaybeRef<string | null | undefined>
-) {
-  const title = ref(newTitle || document.title)
-
-  watch(title, (t) => {
-    if (t != null)
-      document.title = t
-  }, { immediate: true })
-
-  return title
-}
-```
-
-<v-click>
-
-```html
-
-
-
-
-
-
-<-- 1. 重复使用用户提供的 Ref, 或者建立一个新的
-
-<-- 2. 将页面标题与 Ref 进行同步
-
-
-
-```
-
-</v-click>
-</div>
 
 ---
 
@@ -343,6 +431,165 @@ bar.prop = 1
 
 </div>
 </div></div>
+
+---
+
+# 返回由 Ref 组成的对象 <MarkerPattern />
+
+以在使用可组合的函数式，同时获得 `ref` 和 `reactive` 的好处。
+
+<div class="mt-1" />
+<div class="grid grid-cols-2 gap-x-4">
+<v-clicks>
+
+```ts
+import { ref, reactive } from 'vue'
+function useMouse() {
+  const x = ref(0)
+  const y = ref(0)
+  return { x, y }
+}
+const { x, y } = useMouse()
+const mouse = reactive(useMouse())
+mouse.x === x.value // true
+```
+
+<div class="px-2 py-4">
+
+- 可以直接使用 ES6 解构其中的 Ref 使用
+- 根据使用方式，当想要自动解包的功能时，可以使用 `reactive` 将其转换为对象
+
+</div>
+
+</v-clicks>
+</div>
+
+
+---
+
+# useMouse 简易实现
+
+```ts
+// mouse.js
+import { ref, onMounted, onUnmounted } from 'vue'
+
+export function useMouse() {      // 按照惯例，组合式函数名以 use 开头
+  const x = ref(0)                // 被组合式函数封装和管理的状态
+  const y = ref(0)
+
+  function update(event) {         // 组合式函数可以随时更改其状态
+    x.value = event.pageX
+    y.value = event.pageY
+  }
+  // 一个组合式函数也可以挂靠在所属组件的生命周期上，来启动和卸载副作用
+  onMounted(() => window.addEventListener('mousemove', update))
+  onUnmounted(() => window.removeEventListener('mousemove', update))
+
+  return { x, y }         // 通过返回值暴露所管理的状态
+}
+```
+
+
+---
+
+# 改进 - 副作用自动清除 <MarkerPattern />
+
+一个组合式函数可以调用其他的组合式函数
+
+```ts
+// event.js
+import { onMounted, onUnmounted } from 'vue'
+export function useEventListener(target, event, callback) {
+  onMounted(() => target.addEventListener(event, callback))
+  onUnmounted(() => target.removeEventListener(event, callback))
+}
+```
+```ts
+// mouse.js
+import { ref } from 'vue'
+import { useEventListener } from './event'
+export function useMouse() {
+  const x = ref(0)
+  const y = ref(0)
+  useEventListener(window, 'mousemove', (event) => {
+    x.value = event.pageX
+    y.value = event.pageY
+  })
+
+  return { x, y }
+}
+```
+
+
+---
+
+# 使用
+
+```html
+<script setup>
+import { useMouse } from './mouse.js'
+
+const { x, y } = useMouse()
+</script>
+
+<template>鼠标的位置在 {{ x }}, {{ y }}</template>
+```
+
+<DemoMouse />
+
+
+---
+
+# 改进 - 节流防抖 <MarkerPattern />
+
+```ts {maxHeight:'100'}
+function debounceFilter(ms: number) {
+  let timer
+  const filter = (invoke) => {
+    const duration = unref(ms)
+    if (timer) clearTimeout(timer)
+    if (duration <= 0) { return invoke() }
+    timer = setTimeout(() => { invoke() }, duration)
+  }
+  return filter
+}
+function useMouse(options: useMouseOption = {}) {
+  const { eventFilter } = options
+  const mouseHandler = (event: MouseEvent) => {
+    x.value = event.pageX
+    y.value = event.pageY
+  }
+  const mouseHandlerWrapper = (event: MouseEvent) => {
+    return eventFilter === undefined ? mouseHandler(event) : eventFilter(() => mouseHandler(event))
+  }
+  useEventListener(window, 'mousemove', mouseHandlerWrapper)
+```
+
+
+---
+
+# 使用
+
+```html
+<script setup>
+import { useMouse } from './mouse2.js'
+
+const { x, y } = useMouse({ eventFilter: debounceFilter(200) })
+</script>
+
+<template>鼠标的位置在 {{ x }}, {{ y }}</template>
+```
+
+<DemoMouse2 />
+
+
+---
+layout: center
+class: text-center
+---
+
+# 实现一个 useTitle
+
 
 ---
 
@@ -565,15 +812,17 @@ function useBala<T>(arg: MaybeRef<T>) {
 
 </div>
 
+
 ---
 
-# 再看一遍
+# useTitle 简易实现
 
 <div class="grid grid-cols-[450px,1fr] gap-4">
 
+
 ```ts
 import { ref, watch } from 'vue'
-import type { MaybeRef } from '@vueuse/shared'
+type MaybeRef<T> = Ref<T> | T
 
 export function useTitle(
   newTitle: MaybeRef<string | null | undefined>
@@ -588,6 +837,8 @@ export function useTitle(
   return title
 }
 ```
+
+<v-click>
 
 ```html
 
@@ -604,21 +855,58 @@ export function useTitle(
 
 ```
 
+</v-click>
 </div>
+
+
+---
+
+# useTitle 使用
+
+```html
+<script setup lang="ts">
+import { useTitle } from './useTitle'
+const title = useTitle(null)
+</script>
+
+<template>
+  <span class="mr-5">修改title：</span>
+  <input class="mt-10 border" v-model="title" type="text">
+</template>
+```
+
+<DemoTitle />
+
 
 ---
 layout: center
 class: text-center
 ---
 
-# useMouse
+# 实现一个 useDark
+
 
 ---
 
-```ts
-import { useMouse } from '@vueuse/core'
+# 为更好的代码组织抽取组合式函数 <MarkerPattern />
 
-const { x, y, sourceType } = useMouse()
+&nbsp;
+
+抽取组合式函数不仅是为了复用，也是为了代码组织。  
+随着组件复杂度的增高，可能会最终发现组件多得难以查询和理解。
+
+通过组合式，可以基于逻辑问题将组件代码拆分成更小的函数：
+
+```html
+<script setup>
+import { useFeatureA } from './featureA.js'
+import { useFeatureB } from './featureB.js'
+import { useFeatureC } from './featureC.js'
+
+const { foo, bar } = useFeatureA()
+const { baz } = useFeatureB(foo)
+const { qux } = useFeatureC(baz)
+</script>
 ```
 
 
@@ -626,59 +914,172 @@ const { x, y, sourceType } = useMouse()
 
 # 简易实现
 
-```ts
-export function useMouse(options: UseMouseOptions = {}) {
-  const {
-    type = 'page',
-    initialValue = { x: 0, y: 0 },
-    eventFilter,
-  } = options
+```ts {all|3,4|all}
+import { usePreferredDark, useColorMode } from '@vueuse/core'
+export function useDark() {
+  const preferredDark = usePreferredDark()
+  const mode = useColorMode()
 
-  const x = ref(initialValue.x)
-  const y = ref(initialValue.y)
-
-  const mouseHandler = (event: MouseEvent) => {
-    if (type === 'page') {
-      x.value = event.pageX
-      y.value = event.pageY
+  return computed<boolean>({
+    get() {
+      return mode.value === 'dark'
+    },
+    set(v) {
+      if (v === preferredDark.value)
+        mode.value = 'auto'
+      else
+        mode.value = v ? 'dark' : 'light'
     }
-    else if (type === 'client') {
-      x.value = event.clientX
-      y.value = event.clientY
-    }
-  }
-  const mouseHandlerWrapper = (event: MouseEvent) => {
-    return eventFilter === undefined ? mouseHandler(event) : eventFilter(() => mouseHandler(event), {} as any)
-  }
-  useEventListener(window, 'mousemove', mouseHandlerWrapper, { passive: true })
-  useEventListener(window, 'dragover', mouseHandlerWrapper, { passive: true })
-  return { x, y }
+  })
 }
 ```
 
 
+---
 
+# 使用
+
+```html {all|3,6|all}
+<script setup lang="ts">
+import { useDark } from './useDark.ts'
+import { useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+</script>
+<template>
+  <button
+    @click="toggleDark()">
+    <carbon:moon v-if="isDark" />
+    <carbon:sun v-else />
+
+    <span class="mr-1 ml-2">{{ isDark ? 'Dark' : 'Light' }}</span>
+  </button>
+</template>
+```
+
+<DemoDark />
+
+
+---
+
+# 组合关系
+
+&nbsp;
+
+```mermaid {theme:'dark'}
+graph LR;
+    useToggle-->useDark;
+    useDark{{useDark}}-->usePreferredDark;
+    usePreferredDark-->useMediaQuery;
+    useMediaQuery-->useSupported;
+    useDark-->useColorMode;
+    useColorMode{{useColorMode}}-->useStorage;
+    useColorMode-->usePreferredDark;
+    useStorage-->useEventListener;
+```
+
+<div class="mt-10">
+
+- 其中每一个函数都可以独立使用
+- 专注点分离
+
+</div>
+
+
+---
+
+
+# 建立"连结" <MarkerPattern />
+
+Vue 的 `setup()` 只会在组件建立时执行**一次**，并建立数据与逻辑之间的连结。
+
+- 建立 输入 → 输出 的连结
+
+- 输出会自动根据输入的改变而改变
+
+<div class="grid grid-cols-[auto,1fr] gap-4">
+  <div v-click class="p-4">
+    <h3 class="pb-2">Excel 中的公式</h3>
+    <img class="h-40" src="https://cdn.wallstreetmojo.com/wp-content/uploads/2019/01/Division-Formula-in-Excel-Example-1-1.png">
+  </div>
+</div>
+
+
+---
+
+# 将异步操作转换为 同步 <MarkerTips />
+
+使用组合式 API, 我们甚至可以将异步请求转换为 **同步** 的
+
+<div v-click>
+
+###### 异步
+
+```ts
+const data = await fetch('https://api.github.com/').then(r => r.json())
+// use data
+```
+
+</div>
+<div v-click>
+
+###### 组合式 API
+
+```ts
+const { data } = useFetch('https://api.github.com/').json()
+const user_url = computed(() => data.value?.user_url)
+```
+
+</div>
+<div v-click> 
+
+先建立数据间的 连结 ，然后再等待异步请求返回将数据填充。
+
+</div>
+
+
+---
+
+# `useFetch` 用例
+
+<v-click>
+
+```ts
+export function useFetch<R>(url: MaybeRef<string>) {
+  const data = shallowRef<T | undefined>()
+  const error = shallowRef<Error | undefined>()
+  fetch(unref(url))
+    .then(r => r.json())
+    .then(r => data.value = r)
+    .catch(e => error.value = e)
+  return {
+    data,
+    error
+  }
+}
+```
+
+</v-click>
 
 
 ---
 layout: center
-class: text-center
 ---
 
-# useDark
+# 总结
 
----
-
-
----
-
----
-
-# useFullscreen
+- 返回由 Ref 组成的对象
+- 副作用自动清除
+- 接受 Ref 作为函数参数
+- 使用 ref / unref / MaybeRef 让函数变得更加灵活
+- 抽离组合式函数
+- 建立 “连结”
 
 
 ---
+layout: center
+---
 
-# useImage
-
+# 谢谢
 
