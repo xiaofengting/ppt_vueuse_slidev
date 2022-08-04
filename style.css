@@ -2,3 +2,6 @@
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
   margin: 5px;
 }
+.slidev-page-21, .slidev-page-40 {
+  padding: 0;
+}

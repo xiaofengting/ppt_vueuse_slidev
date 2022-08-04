@@ -584,6 +584,11 @@ const { x, y } = useMouse({ eventFilter: debounceFilter(200) })
 
 
 ---
+
+<DemoMouse3 />
+
+
+---
 layout: center
 class: text-center
 ---
@@ -1075,6 +1080,11 @@ layout: center
 - 使用 ref / unref / MaybeRef 让函数变得更加灵活
 - 抽离组合式函数
 - 建立 “连结”
+
+
+---
+
+<LastSummary />
 
 
 ---
