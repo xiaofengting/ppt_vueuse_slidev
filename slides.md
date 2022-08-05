@@ -1012,43 +1012,27 @@ Vue 的 `setup()` 只会在组件建立时执行**一次**，并建立数据与�
 
 
 ---
+layout: center
+class: text-center
+---
 
-# 将异步操作转换为 同步 <MarkerTips />
-
-使用组合式 API, 我们甚至可以将异步请求转换为 **同步** 的
-
-<div v-click>
-
-###### 异步
-
-```ts
-const data = await fetch('https://api.github.com/').then(r => r.json())
-// use data
-```
-
-</div>
-<div v-click>
-
-###### 组合式 API
-
-```ts
-const { data } = useFetch('https://api.github.com/').json()
-const user_url = computed(() => data.value?.user_url)
-```
-
-</div>
-<div v-click> 
-
-先建立数据间的 连结 ，然后再等待异步请求返回将数据填充。
-
-</div>
+# 实现一个 useFetch
 
 
 ---
 
-# `useFetch` 用例
+# 使用 shallowRef
 
-<v-click>
+&nbsp;
+
+和 `ref()` 不同，浅层 ref 的内部值将会原样存储和暴露，  
+不会被深层递归地转为响应式。  
+对 .value 的访问是响应式的。
+
+
+---
+
+# useFetch 简易实现
 
 ```ts
 export function useFetch<R>(url: MaybeRef<string>) {
@@ -1065,7 +1049,38 @@ export function useFetch<R>(url: MaybeRef<string>) {
 }
 ```
 
-</v-click>
+
+---
+
+# 将异步操作转换为 同步 <MarkerTips />
+
+将异步请求转换为 **同步** 的
+
+<div v-click>
+
+###### 异步
+
+```ts
+const data = await fetch('https://api.github.com/').then(r => r.json())
+// use data
+```
+
+</div>
+<div v-click>
+
+###### useFetch
+
+```ts
+const { data } = useFetch('https://api.github.com/').json()
+const user_url = computed(() => data.value?.user_url)
+```
+
+</div>
+<div v-click> 
+
+先建立数据间的 连结 ，然后再等待异步请求返回将数据填充。
+
+</div>
 
 
 ---
@@ -1077,9 +1092,11 @@ layout: center
 - 返回由 Ref 组成的对象
 - 副作用自动清除
 - 接受 Ref 作为函数参数
-- 使用 ref / unref / MaybeRef 让函数变得更加灵活
+- 使用 ref / unref / MaybeRef
 - 抽离组合式函数
 - 建立 “连结”
+- 大量数据使用 shallowRef
+- 将异步操作转换为 同步
 
 
 ---
