@@ -44,8 +44,8 @@
     opacity: 1;
   }
 
-  50%,
-  80% {
+  40%,
+  86% {
     filter: blur(80px);
     opacity: 0;
   }
