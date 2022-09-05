@@ -44,14 +44,14 @@ function useMouse(options: useMouseOption = {}) {
   return { x, y }
 }
 const { x, y } = useMouse()
-const { x: x2, y: y2 } = useMouse({ eventFilter: debounceFilter(200) })
+const { x: x2, y: y2 } = useMouse({ eventFilter: debounceFilter(100) })
 </script>
 
 <template>
   <div class="g-container">
     <p>Lorem ipsum dolor sit amet</p>
     <div id="g-pointer-1" :style="{ transform: `translate(${x}px, ${y}px)` }"></div>
-    <div id="g-pointer-2" :style="{ transform: `translate(${x2}px, ${y2}px)` }"></div>
+    <div id="g-pointer-2" :style="{ transform: `translate(${x2 - 15}px, ${y2 - 15}px)` }"></div>
   </div>
 </template>
 

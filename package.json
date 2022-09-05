@@ -10,6 +10,6 @@
     "@slidev/cli": "^0.35.2",
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*",
-    "@vueuse/core": "^9.0.2"
+    "@vueuse/core": "^9.1.0"
   }
 }
