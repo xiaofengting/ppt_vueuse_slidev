@@ -577,7 +577,7 @@ export function useMouse(options: useMouseOption = {}) {
 import { useMouse } from './mouse2.js'
 import { debounceFilter } from './filter.js'
 
-const { x, y } = useMouse({ eventFilter: debounceFilter(200) })
+const { x, y } = useMouse({ eventFilter: debounceFilter(100) })
 </script>
 
 <template>鼠标的位置在 {{ x }}, {{ y }}</template>
@@ -1102,6 +1102,8 @@ layout: center
 ---
 
 # 谢谢
+
+<FinalConfetti />
 
 
 ---

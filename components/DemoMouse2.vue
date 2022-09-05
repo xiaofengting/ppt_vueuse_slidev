@@ -43,7 +43,7 @@ function useMouse(options: useMouseOption = {}) {
 
   return { x, y }
 }
-const { x, y } = useMouse({ eventFilter: debounceFilter(200) })
+const { x, y } = useMouse({ eventFilter: debounceFilter(100) })
 </script>
 
 <template>鼠标的位置在 {{ x }}, {{ y }}</template>
