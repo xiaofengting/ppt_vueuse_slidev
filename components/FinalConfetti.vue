@@ -1,24 +1,7 @@
 <script setup>
 import confetti from 'canvas-confetti'
-import { watch } from 'vue';
-import { whenever, useWebNotification } from '@vueuse/core'
-import { useBattery } from '@vueuse/core'
+import { whenever } from '@vueuse/core'
 import { useMagicKeys } from '@vueuse/core'
-
-const { charging } = useBattery()
-
-watch(charging, () => {
-  if (!charging.value) {
-    const { show } = useWebNotification({
-      title: '电源断开啦',
-      dir: 'auto',
-      lang: 'zh',
-      renotify: true,
-      tag: 'test',
-    })
-    show()
-  }
-})
 
 function fire() {
   const end = Date.now() + (1 * 1000);

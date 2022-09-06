@@ -337,12 +337,12 @@ Vue 组合式 API 工具包
 <div class="mt-10 mb-10">
   <a class="!border-none" href="https://www.npmjs.com/package/@vueuse/core" target="__blank"><img class="h-4 inline mx-0.5" src="https://img.shields.io/npm/v/@vueuse/core?color=a1b858&label=" alt="NPM version"></a>
   <a class="!border-none" href="https://www.npmjs.com/package/@vueuse/core" target="__blank"><img class="h-4 inline mx-0.5" alt="NPM Downloads" src="https://img.shields.io/npm/dm/@vueuse/core?color=50a36f&label="></a>
-  <img class="h-4 inline mx-0.5" alt="Function Count" src="https://img.shields.io/badge/-200+%20functions-13708a">
+  <img class="h-4 inline mx-0.5" alt="Function Count" src="https://img.shields.io/badge/-249%20functions-13708a">
   <br>
 </div>
 
 
-  - 200+ 组合式函数
+  - 249 组合式函数
   - 同时兼容 Vue 2 和 Vue 3
   - Tree-shakeable
   - TypeScript
@@ -1374,7 +1374,8 @@ layout: center
 7. `useAsyncQueue`： 顺序执行异步队列
 8. `useBase64`： base64 转换
 9. `useCached`： 缓存
-10. `useConfirmDialog`： 创建对话框
+10. `useCloned`： 克隆
+11. `useConfirmDialog`： 创建对话框
 
 
 ---
@@ -1446,3 +1447,7 @@ layout: center
 9. `useNProgress`： nprogress
 10. `useQRCode`： qrcode
 
+
+---
+
+<TestEcharts />

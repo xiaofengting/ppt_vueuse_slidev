@@ -223,20 +223,21 @@
 7. `useAsyncQueue`： 顺序执行异步队列
 8. `useBase64`： base64 转换
 9. `useCached`： 缓存
-10. `useConfirmDialog`： 创建对话框
-11. `useCounter`： 计数器
-12. `useCycleList`： 循环列表
-13. `useDebounceFn`： 函数防抖
-14. `useThrottleFn`： 函数节流
-15. `useEventBus`： 事件总线
-16. `useMemoize`： 缓存
-17. `useOffsetPagination`： 分页
-18. `useStepper`： 步进器
-19. `useSupported`： 是否支持
-20. `useTimeoutPoll`： 使用 timeout 轮询
-21. `useToggle`： 布尔值切换
-22. `useToNumber`： ref 转 number
-23. `useToString`： ref 转 string
+10. `useCloned`： 克隆
+11. `useConfirmDialog`： 创建对话框
+12. `useCounter`： 计数器
+13. `useCycleList`： 循环列表
+14. `useDebounceFn`： 函数防抖
+15. `useThrottleFn`： 函数节流
+16. `useEventBus`： 事件总线
+17. `useMemoize`： 缓存
+18. `useOffsetPagination`： 分页
+19. `useStepper`： 步进器
+20. `useSupported`： 是否支持
+21. `useTimeoutPoll`： 使用 timeout 轮询
+22. `useToggle`： 布尔值切换
+23. `useToNumber`： ref 转 number
+24. `useToString`： ref 转 string
 
 
 # 十三、数学
